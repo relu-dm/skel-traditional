@@ -1,5 +1,5 @@
-# To stop: docker-compose down --remove-orphans -v
-
+# Stop:  docker-compose down --remove-orphans -v
+# Login: docker exec -it -u root keycloak /bin/bash
 version: '3.8'
 
 services:
@@ -14,7 +14,7 @@ services:
     - 3306:33060
     volumes:
     - mysql:/var/lib/mysql
-    - ./infrastructure/dev/database-dev.sql:/docker-entrypoint-initdb.d/database-dev.sql
+    - ./infrastructure/dev/database-dev.sql:/docker-entrypoint-initdb.d/database-dev.sql:ro
 
   keycloak:
     image: jboss/keycloak
@@ -30,11 +30,12 @@ services:
       DB_DATABASE: keycloak
       DB_USER: root
       DB_PASSWORD: root
-      #KEYCLOAK_DEFAULT_THEME:
+      # KEYCLOAK_DEFAULT_THEME: /opt/jboss/keycloak/themes/my-theme/
       KEYCLOAK_IMPORT: /tmp/realm-admin.json,/tmp/realm-customers.json
     volumes:
-    - ./infrastructure/dev//realm-admin.json:/tmp/realm-admin.json
-    - ./infrastructure/dev//realm-customers.json:/tmp/realm-customers.json
+    - ./infrastructure/dev/realm-admin.json:/tmp/realm-admin.json:ro
+    - ./infrastructure/dev/realm-customers.json:/tmp/realm-customers.json:ro
+    # - ./infrastructure/my-theme:/opt/jboss/keycloak/themes/my-theme/:ro
 
 
 volumes:
