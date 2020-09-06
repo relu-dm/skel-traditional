@@ -20,7 +20,7 @@ services:
     image: jboss/keycloak
     container_name: keycloak
     ports:
-    - 8080:8080
+    - 8180:8080
     depends_on:
       - mysql
     environment:
@@ -31,10 +31,9 @@ services:
       DB_USER: root
       DB_PASSWORD: root
       # KEYCLOAK_DEFAULT_THEME: /opt/jboss/keycloak/themes/my-theme/
-      KEYCLOAK_IMPORT: /tmp/realm-admin.json,/tmp/realm-customers.json
+      KEYCLOAK_IMPORT: /tmp/realm-app.json
     volumes:
-    - ./infrastructure/dev/realm-admin.json:/tmp/realm-admin.json:ro
-    - ./infrastructure/dev/realm-customers.json:/tmp/realm-customers.json:ro
+    - ./infrastructure/dev/realm-app.json:/tmp/realm-app.json:ro
     # - ./infrastructure/my-theme:/opt/jboss/keycloak/themes/my-theme/:ro
 
 
