@@ -1,5 +1,7 @@
 # Stop:  docker-compose down --remove-orphans -v
 # Login: docker exec -it -u root keycloak /bin/bash
+# /opt/jboss/keycloak/bin/standalone.sh -Dkeycloak.migration.action=export -Dkeycloak.migration.provider=singleFile -Dkeycloak.migration.file=/tmp/file.json -Djboss.socket.binding.port-offset=100
+# /opt/jboss/keycloak/bin/add-user.sh
 version: '3.8'
 
 services:
@@ -34,6 +36,7 @@ services:
       KEYCLOAK_IMPORT: /tmp/realm-app.json
     volumes:
     - ./infrastructure/dev/realm-app.json:/tmp/realm-app.json:ro
+    - ./infrastructure/dev/startup-scripts:/opt/jboss/startup-scripts:ro
     # - ./infrastructure/my-theme:/opt/jboss/keycloak/themes/my-theme/:ro
 
 
